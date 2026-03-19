@@ -1,0 +1,93 @@
+/* --- DISEÑO DEL MÓDULO DE CAJA --- */
+
+.caja-container {
+  display: grid;
+  grid-template-columns: 320px 1fr 380px; /* Panel Tickets | Carrito | Pago */
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.panel-izquierdo, .carrito-caja, .panel-pago {
+  background: var(--panel-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  min-height: 600px;
+}
+
+/* Estilo de Tickets en espera (Lista izquierda) */
+.ticket-mini-card {
+  padding: 15px;
+  border-radius: 10px;
+  background: var(--bg-main);
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.ticket-mini-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateX(5px);
+}
+
+.ticket-mini-card.seleccionado {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.1);
+}
+
+/* Tabla de Carrito Central */
+.tabla-servicios {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.tabla-servicios th {
+  text-align: left;
+  color: var(--text-p);
+  font-size: 0.85rem;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabla-servicios td {
+  padding: 15px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Panel de Pago Derecho */
+.resumen-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.total-grande {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 20px 0;
+  color: var(--text-h);
+}
+
+.metodos-pago-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Responsividad para Caja */
+@media (max-width: 1200px) {
+  .caja-container {
+    grid-template-columns: 1fr; /* Se apila en pantallas pequeñas */
+  }
+  .panel-izquierdo, .carrito-caja, .panel-pago {
+    min-height: auto;
+  }
+}
