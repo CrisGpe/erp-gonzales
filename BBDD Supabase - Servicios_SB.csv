@@ -1,0 +1,32 @@
+id,nombre,categoria,subcategoria,precio_base,duracion_estimada_minutos,es_activo
+,Corte,Estilismo,"Corte, peinado y diseño",30,30,TRUE
+,Peinado,Estilismo,"Corte, peinado y diseño",30,30,TRUE
+,Trenzas,Estilismo,"Corte, peinado y diseño",30,30,TRUE
+,Planchado,Estilismo,"Corte, peinado y diseño",30,30,TRUE
+,Cepillado,Estilismo,"Corte, peinado y diseño",30,30,TRUE
+,Tratamientos,Estilismo,Tratamientos capilares,30,30,TRUE
+,Rituales,Estilismo,Tratamientos capilares,30,30,TRUE
+,Mechas,Estilismo,Colorimetría,30,30,TRUE
+,Botox,Estilismo,Botox - alizados,30,30,TRUE
+,Balayage,Estilismo,Colorimetría,30,30,TRUE
+,Alizados,Estilismo,Botox - alizados,30,30,TRUE
+,Maquillaje,Cosmetología,Maquillaje,30,30,TRUE
+,Manicure,Cosmiatría,Daycare,30,30,TRUE
+,Pedicure,Cosmiatría,Daycare,30,30,TRUE
+,Facial,Cosmiatría,Daycare,30,30,TRUE
+,Masajes,Cosmiatría,Daycare,30,30,TRUE
+,Poligel,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Rubber,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Depilacion,Cosmiatría,Daycare,30,30,TRUE
+,Podologia,Cosmiatría,Especial,30,30,TRUE
+,Parafina,Cosmiatría,Especial,30,30,TRUE
+,Manicure SPA,Cosmiatría,Especial,30,30,TRUE
+,Pedicure SPA,Cosmiatría,Especial,30,30,TRUE
+,Acrílicos,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Gel Manicure,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Esculpido Uñas,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Retiro Acrílico,Cosmetología,Sistema uñas y otros,30,30,TRUE
+,Depilación corporal,Cosmiatría,Especial,30,30,TRUE
+,Microblading,Cosmetología,Técnico de imagen,30,30,TRUE
+,Microshading,Cosmetología,Técnico de imagen,30,30,TRUE
+,Pigmentación de labios,Cosmetología,Técnico de imagen,30,30,TRUE
