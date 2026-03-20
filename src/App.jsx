@@ -6,7 +6,8 @@ import './App.css'
 // IMPORTANTE: Importaciones de los módulos operativos
 import { AdminDashboard } from './modules/AdminDashboard'
 import { RecepcionDashboard } from './modules/RecepcionDashboard'
-import { AgenteDashboard } from './modules/AgenteDashboard' // Ya lo importamos como módulo real
+import { AgenteDashboard } from './modules/AgenteDashboard'
+import { CajaDashboard } from './components/CajaDashboard' // ✅ FALTA ESTA LÍNEA
 
 function App() {
   const [session, setSession] = useState(null)
@@ -14,14 +15,12 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 1. Obtener sesión inicial
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       if (session) getPerfil(session.user.id)
       else setLoading(false)
     })
 
-    // 2. Escuchar cambios de autenticación
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       if (session) {
@@ -45,7 +44,6 @@ function App() {
 
       if (error) throw error
 
-      // Validación de cuenta aprobada
       if (data && !data.aprobado) {
         alert("Tu cuenta está pendiente de aprobación.")
         await supabase.auth.signOut()
@@ -74,7 +72,7 @@ function App() {
       <header className="erp-header">
         <div>
           <span>👤 <strong>{perfil?.nombre_completo}</strong></span>
-          <span className="role-badge">{perfil?.rol}</span>
+          <span className={`role-badge ${perfil?.rol?.toLowerCase()}`}>{perfil?.rol}</span>
         </div>
         <button 
           onClick={() => supabase.auth.signOut()} 
@@ -85,7 +83,6 @@ function App() {
       </header>
 
      <main>
-        {/* Agregamos ?. a todos por seguridad */}
         {perfil?.rol === 'SUPER_ADMIN' && <AdminDashboard />}
         
         {perfil?.rol === 'STAFF_RECEPCION' && (

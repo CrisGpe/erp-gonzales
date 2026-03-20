@@ -54,20 +54,18 @@ export function ModalAsignacion({ agente, onClose, onConfirm }) {
     }
   }, [subCatSeleccionada, catSeleccionada, dbServicios]);
 
-  // 4. Lógica de envío (Mapping a los nombres de RecepcionDashboard)
+  // 4. Lógica de envío
   const handleConfirmar = () => {
-    // Definimos qué nivel de detalle se guarda en 'tipo_servicio'
     let valorTipoServicio = catSeleccionada;
     if (subCatSeleccionada) valorTipoServicio = subCatSeleccionada;
     if (servicioFinal) valorTipoServicio = servicioFinal;
 
-    // Buscamos el precio si se eligió un servicio específico
     const servicioEncontrado = dbServicios.find(s => s.nombre === servicioFinal);
     const monto = servicioEncontrado ? servicioEncontrado.precio_base : null;
 
     onConfirm({ 
       agenteId: agente.id, 
-      excepcionCola, // Turno, Cliente, etc.
+      excepcionCola, 
       clienteManual: clienteNombre || 'POR ASIGNAR', 
       tipoServicio: valorTipoServicio,
       montoEstimado: monto
@@ -76,89 +74,94 @@ export function ModalAsignacion({ agente, onClose, onConfirm }) {
 
   return (
     <div className="modal-overlay">
-      <div className="login-card" style={{ maxWidth: '500px', textAlign: 'left', border: '1px solid var(--accent)' }}>
-        <h2 style={{ marginTop: 0 }}>🛎️ Nueva Asesoría: {agente.nickname}</h2>
+      <div className="panel-izquierdo" style={{ maxWidth: '500px', width: '100%', margin: '20px' }}>
+        <header style={{ marginBottom: '20px' }}>
+          <h2 style={{ margin: 0, color: 'var(--text-h)' }}>🛎️ Nueva Asesoría</h2>
+          <p style={{ margin: '5px 0 0', color: 'var(--accent)', fontWeight: 'bold' }}>Agente: {agente.nickname}</p>
+        </header>
+        
         <hr style={{ opacity: 0.1, marginBottom: '20px' }} />
 
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '5px' }}>Tipo de Atención / Excepción:</label>
-          <select 
-            style={{ width: '100%', padding: '10px' }}
-            value={excepcionCola} 
-            onChange={(e) => setExcepcionCola(e.target.value)}
-          >
-            <option value="Turno">🔄 Por Turno (Penaliza cola)</option>
-            <option value="Cliente">⭐ Cliente Directo (Solicitado)</option>
-            <option value="Niño">👶 Atención Niño</option>
-            <option value="Corrección">🛠️ Corrección de color/corte</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '5px' }}>Nombre del Cliente:</label>
-          <input 
-            type="text" 
-            placeholder="Escriba nombre o deje vacío para 'POR ASIGNAR'" 
-            style={{ width: '100%', padding: '10px', boxSizing: 'border-box' }}
-            value={clienteNombre}
-            onChange={(e) => setClienteNombre(e.target.value)}
-          />
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
-          <div>
-            <label style={{ display: 'block', fontSize: '0.8rem', marginBottom: '5px' }}>Categoría:</label>
+        <div className="resumen-pago">
+          {/* TIPO DE ATENCIÓN */}
+          <div className="input-row" style={{ marginBottom: '15px' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '8px' }}>Tipo de Atención:</label>
             <select 
-              style={{ width: '100%', padding: '10px' }}
-              value={catSeleccionada} 
-              onChange={(e) => setCatSeleccionada(e.target.value)}
+              value={excepcionCola} 
+              onChange={(e) => setExcepcionCola(e.target.value)}
             >
-              <option value="">Seleccione...</option>
-              {listas.categorias.map(c => <option key={c} value={c}>{c}</option>)}
+              <option value="Turno">🔄 Por Turno (Penaliza cola)</option>
+              <option value="Cliente">⭐ Cliente Directo (Solicitado)</option>
+              <option value="Niño">👶 Atención Niño</option>
+              <option value="Corrección">🛠️ Corrección de color/corte</option>
             </select>
           </div>
-          <div>
-            <label style={{ display: 'block', fontSize: '0.8rem', marginBottom: '5px' }}>Subcategoría:</label>
+
+          {/* NOMBRE CLIENTE */}
+          <div className="input-row" style={{ marginBottom: '15px' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '8px' }}>Nombre del Cliente:</label>
+            <input 
+              type="text" 
+              placeholder="Escriba nombre o deje vacío..." 
+              value={clienteNombre}
+              onChange={(e) => setClienteNombre(e.target.value)}
+            />
+          </div>
+
+          {/* SELECTS EN CASCADA (GRID) */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+            <div className="input-row">
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '5px' }}>Categoría:</label>
+              <select 
+                value={catSeleccionada} 
+                onChange={(e) => setCatSeleccionada(e.target.value)}
+              >
+                <option value="">Seleccione...</option>
+                {listas.categorias.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div className="input-row">
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '5px' }}>Subcategoría:</label>
+              <select 
+                value={subCatSeleccionada} 
+                onChange={(e) => setSubCatSeleccionada(e.target.value)} 
+                disabled={!catSeleccionada}
+              >
+                <option value="">Seleccione...</option>
+                {listas.subcategorias.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* SERVICIO ESPECÍFICO */}
+          <div className="input-row" style={{ marginBottom: '25px' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '8px' }}>Servicio Específico (Opcional):</label>
             <select 
-              style={{ width: '100%', padding: '10px' }}
-              value={subCatSeleccionada} 
-              onChange={(e) => setSubCatSeleccionada(e.target.value)} 
-              disabled={!catSeleccionada}
+              value={servicioFinal} 
+              onChange={(e) => setServicioFinal(e.target.value)} 
+              disabled={!subCatSeleccionada}
             >
-              <option value="">Seleccione...</option>
-              {listas.subcategorias.map(s => <option key={s} value={s}>{s}</option>)}
+              <option value="">Nivel actual seleccionado...</option>
+              {listas.nombres.map(n => <option key={n} value={n}>{n}</option>)}
             </select>
+            <p style={{fontSize: '0.7rem', color: 'var(--text-p)', marginTop: '8px', fontStyle: 'italic'}}>
+              * Se registrará el nivel más específico seleccionado.
+            </p>
           </div>
         </div>
 
-        <div style={{ marginBottom: '25px' }}>
-          <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '5px' }}>Servicio Específico (Opcional):</label>
-          <select 
-            style={{ width: '100%', padding: '10px' }}
-            value={servicioFinal} 
-            onChange={(e) => setServicioFinal(e.target.value)} 
-            disabled={!subCatSeleccionada}
-          >
-            <option value="">Nivel actual seleccionado...</option>
-            {listas.nombres.map(n => <option key={n} value={n}>{n}</option>)}
-          </select>
-          <p style={{fontSize: '0.75rem', color: '#888', marginTop: '5px'}}>
-            * Se registrará el nivel más específico que seleccione.
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
           <button 
-            className="btn-primary" 
-            style={{ flex: 2, padding: '12px' }}
-            disabled={!catSeleccionada} // Solo exigimos categoría para iniciar
+            className="btn-primary pulse" 
+            style={{ flex: 2, padding: '15px' }}
+            disabled={!catSeleccionada}
             onClick={handleConfirmar}
           >
             Confirmar e Iniciar
           </button>
           <button 
             className="btn-danger" 
-            style={{ flex: 1 }} 
+            style={{ flex: 1, background: 'transparent', border: '1px solid var(--danger)', color: 'var(--danger)' }} 
             onClick={onClose}
           >
             Cancelar

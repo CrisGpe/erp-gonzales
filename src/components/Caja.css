@@ -1,93 +1,262 @@
-/* --- DISEÑO DEL MÓDULO DE CAJA --- */
+/* --- DISEÑO DEL MÓDULO DE CAJA UNIFICADO --- */
+.caja-app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f1f5f9;
+}
 
-.caja-container {
+/* Barra de Navegación de Caja */
+.caja-nav-tabs {
+  display: flex;
+  background: white;
+  padding: 0 20px;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 10px;
+  z-index: 10;
+}
+
+.caja-nav-tabs button {
+  padding: 15px 20px;
+  border: none;
+  background: none;
+  font-weight: 700;
+  color: #64748b;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.caja-nav-tabs button.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background: #eff6ff;
+}
+
+/* Grid Principal de Cobro */
+.caja-main-grid {
   display: grid;
-  grid-template-columns: 320px 1fr 380px; /* Panel Tickets | Carrito | Pago */
-  gap: 24px;
+  grid-template-columns: 300px 1fr 380px;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 140px);
   align-items: start;
-  width: 100%;
-  padding-top: 10px;
 }
 
 .panel-izquierdo, .carrito-caja, .panel-pago {
-  background: var(--panel-bg);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   padding: 20px;
-  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
 }
 
-/* Estilo de Tickets en espera (Lista izquierda) */
+/* Tickets Pendientes */
 .ticket-mini-card {
   padding: 15px;
   border-radius: 10px;
-  background: var(--bg-main);
+  background: #f8fafc;
   margin-bottom: 12px;
   cursor: pointer;
+  border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
-  border: 1px solid transparent;
 }
 
 .ticket-mini-card:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: #2563eb;
+  background: #eff6ff;
   transform: translateX(5px);
 }
 
-.ticket-mini-card.seleccionado {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  box-shadow: 0 0 10px rgba(37, 99, 235, 0.1);
+/* Carrito y Servicios */
+.chip-servicio {
+  background: #e2e8f0;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin: 2px;
+  display: inline-block;
+  color: #1e293b;
+  font-weight: 600;
 }
 
-/* Tabla de Carrito Central */
-.tabla-servicios {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+.total-display {
+  margin-top: auto;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 12px;
+  color: #f0f9ff;
+  text-align: right;
 }
 
-.tabla-servicios th {
-  text-align: left;
-  color: var(--text-p);
-  font-size: 0.85rem;
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tabla-servicios td {
-  padding: 15px 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Panel de Pago Derecho */
-.resumen-pago {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.total-grande {
-  font-size: 3rem;
+/* Liquidación y Status */
+.status-check {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  text-align: center;
   font-weight: 800;
+}
+
+.status-check.ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.status-check.pending { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.btn-execute-pago {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  border: none;
+  background: #10b981;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39);
+}
+
+.btn-execute-pago:disabled {
+  background: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.apertura-caja-card {
+  max-width: 400px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.apertura-caja-card input {
+  font-size: 2rem;
+  width: 100%;
   text-align: center;
   margin: 20px 0;
-  color: var(--text-h);
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
-.metodos-pago-grid {
+.cierre-caja-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+  padding: 20px;
 }
 
-/* Responsividad para Caja */
-@media (max-width: 1200px) {
-  .caja-container {
-    grid-template-columns: 1fr; /* Se apila en pantallas pequeñas */
-  }
-  .panel-izquierdo, .carrito-caja, .panel-pago {
-    min-height: auto;
-  }
+.denominacion-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.denominacion-row input {
+  width: 80px;
+  padding: 5px;
+  text-align: center;
+}
+.arqueo-wrapper { padding: 20px; }
+
+.apertura-caja-card {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 450px;
+  margin: 50px auto;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+
+.input-apertura-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 30px 0;
+}
+
+.input-apertura-group input {
+  font-size: 2.5rem;
+  width: 180px;
+  border: none;
+  border-bottom: 3px solid #3b82f6;
+  text-align: center;
+  font-weight: 800;
+  outline: none;
+}
+
+.cierre-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 30px;
+}
+
+.billete-input {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.alerta-diferencia {
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.alerta-diferencia.negativa { background: #fef2f2; color: #991b1b; }
+.alerta-diferencia.positiva { background: #f0fdf4; color: #166534; }
+.caja-header-clean {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ticket-mini-card.border-warning {
+  border-left: 5px solid #f59e0b;
+}
+
+.item-carrito-atencion {
+  background: white;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.emisor-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #3b82f6;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.total-row-main {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px solid rgba(255,255,255,0.1);
+  font-size: 1.5rem;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
 }

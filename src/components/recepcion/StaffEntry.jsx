@@ -10,41 +10,31 @@ export function StaffEntry({ busqueda, setBusqueda, staff, onRegistrar }) {
   );
 
   return (
-    <section className="cola-section half-width-container" style={{ padding: '15px', marginBottom: '25px', background: 'rgba(255,255,255,0.05)', borderRadius: '15px', border: '1px solid var(--border)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
-        <h2 style={{ fontSize: '0.9rem', margin: 0, whiteSpace: 'nowrap' }}>⚪ Registro Staff:</h2>
+    <section className="half-width-container" style={{ border: 'none', background: 'transparent', marginBottom: '0' }}>
+      <div className="staff-entry-header" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <h2>REGISTRO STAFF</h2>
         <div className="search-input-wrapper">
-          <i>🔍</i>
+          <i style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)' }}>🔍</i>
           <input 
             type="text" 
             className="search-input-compact"
-            placeholder="Buscar agente..." 
+            placeholder="Buscar..." 
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
         </div>
       </div>
       
-      {/* Contenedor con scroll horizontal y rejilla de 2 filas */}
-      <div className="horizontal-scroll-grid">
-        {filtrados.length > 0 ? (
-          filtrados.map((agente) => {
-            const haNotificado = agente.estado_actual === 'Pendiente';
-            return (
-              <button 
-                key={agente.id} 
-                className={`${haNotificado ? "btn-success pulse" : "btn-wait"} btn-staff-entry`} 
-                onClick={() => onRegistrar(agente.id)}
-              >
-                {haNotificado ? `✅ ${agente.nickname}` : `+ ${agente.nickname}`}
-              </button>
-            );
-          })
-        ) : (
-          <div className="no-results-msg">
-            ⚠️ No se encontró ningún agente que coincida con "{busqueda}"
-          </div>
-        )}
+      <div className="horizontal-scroll-grid" style={{ marginTop: '5px' }}>
+        {filtrados.map((agente) => (
+          <button 
+            key={agente.id} 
+            className="btn-staff-entry btn-wait" 
+            onClick={() => onRegistrar(agente.id)}
+          >
+            {agente.nickname}
+          </button>
+        ))}
       </div>
     </section>
   );
