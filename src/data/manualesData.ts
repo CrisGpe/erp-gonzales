@@ -23,6 +23,58 @@ export interface ManualDoc {
 
 export const MANUALES_DATA: ManualDoc[] = [
   {
+    id: "manifiesto",
+    numero: "00",
+    rol: "MANIFIESTO",
+    titulo: "Manifiesto & Arquitectura Holística del Ecosistema",
+    subtitulo: "La Tríada de Valor, los 5 Pilares Maestros y el Vínculo B2B2C con LuminaHQ",
+    icono: "📖",
+    audiencia: "Fundadores, Inversionistas, Gerentes Generales y Administradores",
+    nivelAcceso: 100,
+    filosofia: "Vaikuntha ERP es el nodo operativo físico que conecta la experiencia del consumidor (Clienta), la dignidad y comisiones del profesional (Staff) y el control financiero estricto de caja, compras e inventarios (Dueño), operando como la base de la red inteligente LuminaHQ.",
+    checklists: [
+      {
+        titulo: "Los 5 Pilares de Excelencia Operativa",
+        items: [
+          "Pilar 1: Workspaces de baja fricción para mitigar la rotación de personal (Rol Soporte)",
+          "Pilar 2: Escudo financiero con arqueo ciego, drawer de gastos menores y compras a crédito (15-60d)",
+          "Pilar 3: Taller metrológico con balanzas IoT y pesaje al gramo (cero desperdicio químico)",
+          "Pilar 4: Experiencia VIP en sala con tótem kiosko, radar BLE y Vaikuntha Points 💎",
+          "Pilar 5: Resiliencia con modo Offline-First (IndexedDB a 0ms) y facturación oficial SUNAT PSE"
+        ]
+      },
+      {
+        titulo: "La Tríada de Ganancia Compartida (Win-Win-Win)",
+        items: [
+          "Para la Clienta: Transparencia total de cuenta por QR y fidelización gamificada",
+          "Para el Staff: Suite móvil en sillón, comisiones transparentes y pedidos de fórmulas sin desplazarse",
+          "Para el Dueño: Cero fugas en caja, inventario al gramo y conciliación D+1 de datáfonos POS"
+        ]
+      }
+    ],
+    modulosClave: [
+      {
+        nombre: "Conexión con LuminaHQ B2B2C",
+        descripcion: "El puente entre la operación física de la sede y la red de beneficios de marcas y clientes.",
+        pasos: [
+          "Sincronización de pasaporte de beneficios Vaikuntha Points 💎 con el motor Octalysis & SAPS",
+          "Portabilidad del historial técnico capilar de la clienta bajo consentimiento Ley 29733",
+          "Canal de formalización de ingresos y generación de borradores RHE para SUNAFIL"
+        ]
+      },
+      {
+        nombre: "Aprovisionamiento en 15 Minutos",
+        descripcion: "Poblar sedes, clientes, roles, bienes y puestos sin fallos de clave foránea.",
+        pasos: [
+          "Descargar el Libro Maestro de Excel (15 pestañas con Hoja 00 de Guía de Jerarquía)",
+          "Importar secuencialmente: Nivel 1 (Raíz) ➔ Nivel 2 (Dependientes) ➔ Nivel 3 (Puentes)",
+          "El sistema traduce automáticamente los nombres legibles de sede_principal a UUIDs de base de datos"
+        ]
+      }
+    ],
+    duracionEstimadaMin: 7
+  },
+  {
     id: "superadmin",
     numero: "01",
     rol: "SUPERADMIN",
